@@ -2,6 +2,45 @@
 
 
 $_PW = "hhwy1203";
+$_LOCALPW = "1234";
+
+	// Log File
+	function errorLog($preFix = "log", $msg = "no message", $levelType)
+	{
+
+		$levelMsg = "";
+
+		switch ($levelType) {
+			case 0:
+				$levelMsg = "DEBUG";
+				break;
+
+			case 1:
+				$levelMsg = "WARNING";
+				break;
+
+			case 2:
+				$levelMsg = "FATAL";
+				break;
+		}
+
+		if (is_array($msg)) {
+			$msg = serialize($msg); // 직열화로
+			// $msg = unserialize($msg); // 다시 배열로
+		}
+
+
+		// prefix : log_11_23.log 중 "log"
+
+		$logFile = LOG_DIR . "/" . $preFix . "_" . date("Ymd") . ".log";
+
+		if (is_writeable(LOG_DIR)) {
+			return error_log($msg, 3, $logFile);
+		} else {
+			// return error(LOG_DIR . "is not writable");
+		}
+	}
+
 
 	function p()
 	{

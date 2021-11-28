@@ -4,6 +4,7 @@
 	define("HOST_DIR", $_SERVER["DOCUMENT_ROOT"]);
 	define("ROOT_DIR", HOST_DIR);
 	define("LIB_DIR", HOST_DIR . "/lib");
+	define("LOG_DIR", HOST_DIR . "/.log");
 	define("DEBUG_LEVEL", 1);
 
 	// php 환경설정
