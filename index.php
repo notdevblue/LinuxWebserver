@@ -6,7 +6,7 @@ echo "<h6>마시려면 아치 리눅스를</h6>";
 
 $tableName = "tb_comments";
 $dbAccess = mysqli_connect("localhost", "han", $_LOCALPW, "study_db");
-$query = "SELECT * FROM " . $tableName;
+$query = "SELECT * FROM " . $tableName . " ORDER BY id DESC;";
 
 $result = mysqli_query($dbAccess, $query);
 $resultDataArray = array();
