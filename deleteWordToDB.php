@@ -20,8 +20,10 @@ if ($effectedRows == 0) {
     echo "해당하는 글을 찾을 수 없습니다.";
     exit();
 } else if ($effectedRows > 1) {
-    echo "에러. 우앱이에게 DM 을 보내줘요.";
-    exit();
+    // echo "에러. 우앱이에게 DM 을 보내줘요.";
+    // exit();
+    echo "아이디와 비번이 같은 글을 전부 삭제합니다.<br/>";
+    echo "곧 수정될 것.<br/>";
 }
 
 $query = "DELETE FROM " . $tableName . " WHERE name='" . $post["name"] . "'";

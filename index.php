@@ -36,7 +36,7 @@ mysqli_close($dbAccess);
 		</div>
 	</form>
 
-	<form action="deleteWorldToDB.php" method="POST">
+	<form action="deleteWordToDB.php" method="POST">
 		지울 글의 이름<br />
 		<input type="text" name="name"><br />
 		지울 글의 비밀번호<br />
@@ -47,7 +47,8 @@ mysqli_close($dbAccess);
 	<?php
 	echo "<br />";
 	foreach ($resultDataArray as $key => $val) {
-		echo $val["name"] . " : " . $val["date"] . "<br />" . $val["comment"];
+		echo $val["name"] . " : " . $val["date"] . "<br /><i>" . $val["comment"] . "</i>";
+		echo "<br />";
 		echo "<br />";
 	}
 	?>

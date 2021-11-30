@@ -1,7 +1,5 @@
 <?php
 
-
-$_PW = "hhwy1203";
 $_LOCALPW = "1234";
 
 	// Log File
