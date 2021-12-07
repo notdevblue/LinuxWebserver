@@ -3,6 +3,7 @@ require "init.php";
 
 echo "<h2>커피</h2>";
 echo "<h6>마시려면 아치 리눅스를</h6>";
+echo "우앱 10번<br/>";
 
 $tableName = "tb_comments";
 $dbAccess = mysqli_connect("localhost", "han", $_LOCALPW, "study_db");

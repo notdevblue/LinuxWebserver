@@ -1,7 +1,4 @@
 <?php
-
-$_LOCALPW = "1234";
-
 	// Log File
 	function errorLog($preFix = "log", $msg = "no message", $levelType)
 	{
