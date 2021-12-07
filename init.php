@@ -16,5 +16,5 @@
 
 	// 공통 인클루드
 	require "lib.common.php";
-	require "./.Secret/secret.php";
+	require ".Secret/secret.php";
 ?>
