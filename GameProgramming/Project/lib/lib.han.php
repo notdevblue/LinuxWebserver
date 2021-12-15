@@ -13,7 +13,7 @@ function _while($functionCallback, $booleanCallback, $no_count_exeception = fals
     start:
     ++$count;
     if(!$no_count_exeception && $count > 10000) {
-        echo "lib.han.php > _while(): ERR WHILE LOOP";
+        echo "lib.han.php::_while() > ERR WHILE LOOP, exitting";
         exit();
     }
     $functionCallback();

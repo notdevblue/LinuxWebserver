@@ -3,6 +3,7 @@
 //     #TYPE#
 //     $MEMBER
 //     = this is value
+//     & this is end of member       
 //     ; <= packet end
 //
 //     example:
@@ -17,10 +18,17 @@ require "../../lib/lib.common.php"; // debug only
 $post = $_POST;
 
 #region Null value check
-$post["id"]     = empty($post["id"])     ? "no_id" : $post["id"];
+
+if(empty($post["type"])) { // exception
+    echo "#ERR#\$WHAT=No type found&;";
+    exit();
+}
+
+$post["name"]   = empty($post["name"])   ? "no_id" : $post["name"];
 $post["itemId"] = empty($post["itemId"]) ? -1      : $post["itemId"];
 #endregion
 
+$type = $post["type"];
 $fetchResult = array(); // query data
 $response = "";         // actual packet for client
 $queryResult;           // actual query result
@@ -29,16 +37,33 @@ $dbAccess;
 $i = 0;
 
 #region Queries
-$queryCheckUser      = "SELECT count(id) FORM `tb_gp` WHERE name='" . $post["id"] . "';";
-$queryGetUserData    = "SELECT u.name, u.gold, i.name FROM tb_gp AS u LEFT JOIN tb_itemMappingTable AS m ON u.id=m.charactorId LEFT JOIN tb_item AS i ON m.itemId=i.id WHERE u.name='" . $post["id"] . "';";
-$queryGetAllUserData = "SELECT u.name, u.gold, i.name FROM tb_gp AS u LEFT JOIN tb_itemMappingTable AS m ON u.id=m.charactorId LEFT JOIN tb_item AS i ON m.itemId=i.id;";
+$queryCheckUser      = "SELECT count(id) FORM `tb_gp` WHERE name='" . $post["name"] . "';";
+$queryGetUserData    = "SELECT u.name, u.gold, i.name FROM tb_gp AS u LEFT JOIN tb_itemMappingTable AS m ON u.id=m.charactorId LEFT JOIN tb_item AS i ON m.itemId=i.id WHERE u.name='" . $post["name"] . "';";
+$queryGetAllUserData = "SELECT u.name, u.gold         FROM tb_gp AS u;";
 $queryGetHan         = "SELECT u.name, u.gold, i.name FROM tb_gp AS u LEFT JOIN tb_itemMappingTable AS m ON u.id=m.charactorId LEFT JOIN tb_item AS i ON m.itemId=i.id WHERE u.name='Han';";
 
-$queryAddItemToUser  = "INSERT INTO itemMappingTable(charactorId, ItemId) VALUES (" . $post["id"] . ", " . $post["itemId"] . ");";
+$queryAddItemToUser  = "INSERT INTO itemMappingTable(charactorId, ItemId) VALUES (" . $post["name"] . ", " . $post["itemId"] . ");";
 #endregion
 
 $dbAccess    = mysqli_connect("localhost", "han", "1234", "study_db") or die("Cannot connect to database server.\r\nQuitting");
-$queryResult = mysqli_query($dbAccess, $queryGetHan);
+
+#region Query
+switch($type)
+{
+    case "FULLDATA":
+        $queryResult = mysqli_query($dbAccess, $queryGetAllUserData);
+        break;
+
+    case "DATA":
+        $queryResult = mysqli_query($dbAccess, $queryGetUserData);
+        break;
+
+    default: // invalid $post["type"]
+        echo "#ERR#\$WHAT=type is invalid&;";
+        exit();
+
+}
+#endregion
 
 
 if ($queryResult) { // query result to array
@@ -62,8 +87,16 @@ _repeat(count($fetchResult), function () { // array to string conversion (array 
     global $fetchResult;
     global $response;
     global $i;
+    global $type;
 
-    $response .= "#DATA#\$NAME=" . $fetchResult[$i][0] . "\$GOLD=" . $fetchResult[$i][1] . "\$WEAPON=" . $fetchResult[$i][2] . ";";
+    switch($type)
+    {
+        case "DATA":
+        case "FULLDATA":
+            $response .= "#DATA#\$NAME=" . $fetchResult[$i][0] . "\$GOLD=" . $fetchResult[$i][1] . "\$WEAPON=" . $fetchResult[$i][2] . "&;";
+            break;
+    }
+
     ++$i;
 });
 
