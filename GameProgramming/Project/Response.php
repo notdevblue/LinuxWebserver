@@ -38,9 +38,12 @@ $i = 0;
 
 #region Queries
 $queryCheckUser      = "SELECT count(id) FORM `tb_gp` WHERE name='" . $post["name"] . "';";
-$queryGetUserData    = "SELECT u.name, u.gold, i.name FROM tb_gp AS u LEFT JOIN tb_itemMappingTable AS m ON u.id=m.charactorId LEFT JOIN tb_item AS i ON m.itemId=i.id WHERE u.name='" . $post["name"] . "';";
-$queryGetAllUserData = "SELECT u.name, u.gold         FROM tb_gp AS u;";
-$queryGetHan         = "SELECT u.name, u.gold, i.name FROM tb_gp AS u LEFT JOIN tb_itemMappingTable AS m ON u.id=m.charactorId LEFT JOIN tb_item AS i ON m.itemId=i.id WHERE u.name='Han';";
+$queryGetUserData    = "SELECT u.name, u.gold, i.name FROM `tb_gp` AS u LEFT JOIN tb_itemMappingTable AS m ON u.id=m.charactorId LEFT JOIN tb_item AS i ON m.itemId=i.id WHERE u.name='" . $post["name"] . "';";
+$queryGetAllUserData = "SELECT u.name, u.gold         FROM `tb_gp` AS u;";
+$queryGetHan         = "SELECT u.name, u.gold, i.name FROM `tb_gp` AS u LEFT JOIN tb_itemMappingTable AS m ON u.id=m.charactorId LEFT JOIN tb_item AS i ON m.itemId=i.id WHERE u.name='Han';";
+$queryGetWeaponData  = "SELECT `name`, `price` FROM `tb_item` WHERE `type`=0;";
+$queryGetArmorData   = "SELECT `name`, `price` FROM `tb_item` WHERE `type`=1;";
+$queryGetUserItem = "SELECT"; // TODO : not finished
 
 $queryAddItemToUser  = "INSERT INTO itemMappingTable(charactorId, ItemId) VALUES (" . $post["name"] . ", " . $post["itemId"] . ");";
 #endregion
@@ -56,6 +59,18 @@ switch($type)
 
     case "DATA":
         $queryResult = mysqli_query($dbAccess, $queryGetUserData);
+        break;
+    
+    case "GETARMOR":
+        $queryResult = mysqli_query($dbAccess, $queryGetArmorData);
+        break;
+    
+    case "GETWEAPON":
+        $queryResult = mysqli_query($dbAccess, $queryGetWeaponData);
+        break;
+
+    case "USERITEM":
+        $queryResult = mysqli_query($dbAccess, $queryGetUserItem);
         break;
 
     default: // invalid $post["type"]
@@ -94,6 +109,16 @@ _repeat(count($fetchResult), function () { // array to string conversion (array 
         case "DATA":
         case "FULLDATA":
             $response .= "#DATA#\$NAME=" . $fetchResult[$i][0] . "\$GOLD=" . $fetchResult[$i][1] . "\$WEAPON=" . $fetchResult[$i][2] . "&;";
+            break;
+
+        case "GETARMOR":
+        case "GETWEAPON":
+            $response .= "#WEAPONDATA#\$NAME=" . $fetchResult[$i][0] . "\$PRICE=" . $fetchResult[$i][1] . "&;";
+            break;
+
+        
+
+        default:
             break;
     }
 
