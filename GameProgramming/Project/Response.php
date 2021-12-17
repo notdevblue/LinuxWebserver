@@ -10,10 +10,10 @@
 //         #TYPE#$A=wa sans$B=ori;#TYPE#$A=I'm ori$B=jemmun;
 //         #LOGIN#$id=id$pw=pw;
 //         #SCORE#$id=id$score=score;
-ini_set("display_errors", 1);
+// ini_set("display_errors", 1);
 
 require "./lib/lib.han.php"; // loop statement
-require "../../lib/lib.common.php"; // debug only
+// require "../../lib/lib.common.php"; // debug only
 
 $post = $_POST;
 
