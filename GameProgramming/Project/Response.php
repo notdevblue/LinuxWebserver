@@ -43,8 +43,8 @@ $queryCheckUser       = "SELECT count(id) FORM `tb_gp` WHERE name='" . $post["na
 $queryGetUserData     = "SELECT u.name, u.gold, i.name FROM `tb_gp` AS u LEFT JOIN tb_itemMappingTable AS m ON u.id=m.charactorId LEFT JOIN tb_item AS i ON m.itemId=i.id WHERE u.name='" . $post["name"] . "';";
 $queryGetAllUserData  = "SELECT u.name, u.gold         FROM `tb_gp` AS u;";
 $queryGetHan          = "SELECT u.name, u.gold, i.name FROM `tb_gp` AS u LEFT JOIN tb_itemMappingTable AS m ON u.id=m.charactorId LEFT JOIN tb_item AS i ON m.itemId=i.id WHERE u.name='Han';";
-$queryGetWeaponData   = "SELECT `name`, `price`  FROM `tb_item` WHERE `type`=0;";
-$queryGetArmorData    = "SELECT `name`, `price`  FROM `tb_item` WHERE `type`=1;";
+$queryGetWeaponData   = "SELECT `name`, `price`  FROM `tb_item` WHERE `type`=0 ORDER BY price DESC LIMIT 0, 3;";
+$queryGetArmorData    = "SELECT `name`, `price`  FROM `tb_item` WHERE `type`=1 ORDER BY price DESC LIMIT 0, 3;";
 $queryGetUserItem     = "SELECT i.type, i.name   FROM tb_gp as u LEFT JOIN tb_itemMappingTable AS m ON u.id=m.charactorId LEFT JOIN tb_item AS i on m.itemId=i.id WHERE u.name='". $post["name"] ."';";
 // $queryGetUserItem     = "SELECT i.type, i.name   FROM tb_gp as u LEFT JOIN tb_itemMappingTable AS m ON u.id=m.charactorId LEFT JOIN tb_item AS i on m.itemId=i.id WHERE u.name='오리';";
 $queryCanBuyItem      = "SELECT id FROM `tb_item` WHERE `name`='" . $post["itemId"] . "' AND `price` <= (SELECT `gold` FROM `tb_gp` WHERE `name`='" . $post["name"] . "');";
