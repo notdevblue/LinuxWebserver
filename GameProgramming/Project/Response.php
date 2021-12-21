@@ -40,8 +40,8 @@ $canBuy = false;
 
 #region Queries
 $queryCheckUser       = "SELECT count(id) FORM `tb_gp` WHERE name='" . $post["name"] . "';";
-$queryGetUserData     = "SELECT u.name, u.gold, i.name FROM `tb_gp` AS u LEFT JOIN tb_itemMappingTable AS m ON u.id=m.charactorId LEFT JOIN tb_item AS i ON m.itemId=i.id WHERE u.name='" . $post["name"] . "';";
-$queryGetAllUserData  = "SELECT u.name, u.gold         FROM `tb_gp` AS u;";
+$queryGetUserData     = "SELECT u.name, u.gold, i.name FROM `tb_gp` AS u LEFT JOIN tb_itemMappingTable AS m ON u.id=m.charactorId LEFT JOIN tb_item AS i ON m.itemId=i.id WHERE u.name='" . $post["name"] . "' AND u.status=1;";
+$queryGetAllUserData  = "SELECT u.name, u.gold         FROM `tb_gp` AS u WHERE u.status=1;";
 $queryGetHan          = "SELECT u.name, u.gold, i.name FROM `tb_gp` AS u LEFT JOIN tb_itemMappingTable AS m ON u.id=m.charactorId LEFT JOIN tb_item AS i ON m.itemId=i.id WHERE u.name='Han';";
 $queryGetWeaponData   = "SELECT `name`, `price`  FROM `tb_item` WHERE `type`=0 ORDER BY price DESC LIMIT 0, 3;";
 $queryGetArmorData    = "SELECT `name`, `price`  FROM `tb_item` WHERE `type`=1 ORDER BY price DESC LIMIT 0, 3;";
