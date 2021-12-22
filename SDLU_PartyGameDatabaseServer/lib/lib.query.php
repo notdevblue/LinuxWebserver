@@ -1,4 +1,5 @@
 <?php
+require("./Util/send_error.php");
 
 // raii 를 C++처럼 못쓰네 망할
 class mysql
@@ -10,9 +11,7 @@ class mysql
 
         if($this->conn->connect_error) {
             
-            die(json_encode(new class {
-                public $error = "Cannot connect to database server.";
-            }));
+            error("Cannot connect to Database.");
         }
     }
 
@@ -20,9 +19,13 @@ class mysql
         $this->conn->query($query);
     }
 
+    public function close() {
+        $this->conn->close();
+    }
+
     public function __destruct() {
-        $this->conn->close(); 
-        echo "closed";
+        // $this->conn->close(); 
+        // echo "closed";
     }
 }
 
