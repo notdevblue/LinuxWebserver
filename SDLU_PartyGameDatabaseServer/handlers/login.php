@@ -9,6 +9,7 @@ function handle($data) {
 
     $mysql    = new mysql("localhost", "han", "1234", "study_db");
     $result   = $mysql->to_array($mysql->query("SELECT password FROM tb_users WHERE name='" . $data->id ."';"));
+
     $response = array();
 
     $response["type"]   = "login";

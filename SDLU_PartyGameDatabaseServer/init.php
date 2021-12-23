@@ -12,7 +12,7 @@
 
 	// 에러리포트 설정
 	error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_STRICT);
-	ini_set("display_errors", DEBUG_LEVEL);
+	// ini_set("display_errors", DEBUG_LEVEL);
 
 	// 공통 인클루드
 ?>
