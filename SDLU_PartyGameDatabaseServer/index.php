@@ -11,7 +11,7 @@ if(empty($post["type"])) {
 # lib include
 $files = new FilesystemIterator('lib');
 foreach($files as $fileInfo) {
-    require($fileInfo->getFilename()); # 원석이 코드 빼껴오기
+    require_once $fileInfo->getFilename(); # 원석이 코드 빼껴오기
 }
 
 # $db = new mysql("localhost", $id, $password, "study_db");
@@ -24,9 +24,6 @@ try {
     error("type 에 해당하는 Handler 를 찾을 수 없습니다.");
 }
 
-
-
-
-
+handle($post["data"]);
 
 ?>

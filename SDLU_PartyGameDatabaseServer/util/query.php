@@ -1,5 +1,5 @@
 <?php
-require("./Util/send_error.php");
+require_once "./util/send_error.php";
 
 // raii 를 C++처럼 못쓰네 망할
 class mysql
