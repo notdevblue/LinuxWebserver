@@ -4,9 +4,13 @@ require "./util/send_error.php";
 
 $post = $_POST;
 
+#region form check
 if(empty($post["type"])) {
     error("type 이 없습니다.");
+} else if(empty($post["type"])) {
+    error("data 가 없습니다.");
 }
+#endregion
 
 # lib include
 $files = new FilesystemIterator('lib');
@@ -24,6 +28,10 @@ try {
     error("type 에 해당하는 Handler 를 찾을 수 없습니다.");
 }
 
-handle($post["data"]);
+try {
+    handle(json_decode($post["data"]));
+} catch(Exception $e) {
+    error("데이터 파싱 중 오류가 발생했습니다");
+}
 
 ?>

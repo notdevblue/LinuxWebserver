@@ -16,7 +16,25 @@ class mysql
     }
 
     public function query($query) {
-        $this->conn->query($query);
+        return $this->conn->query($query);
+    }
+
+    public function to_array($result) {
+        $arr = array();
+
+        while($row = mysqli_fetch_array($result)) {
+            array_push($arr, $row);
+        }
+
+        return $arr[0];
+    }
+
+    public function password_hash($pw) {
+        return password_hash($pw, PASSWORD_DEFAULT);
+    }
+
+    public function password_verify($pw, $hash) {
+        return password_verify($pw, $hash);
     }
 
     public function close() {
